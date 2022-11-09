@@ -2,13 +2,13 @@ function Home({ name, host }) {
   return (
     <>
       <div>Hola {name}</div> 
-      <pre>{host}</pre>)
+      <pre>{host}</pre>
     </>
   )
 }
 
 export async function getServerSideProps(context) {
-  const hostname = JSON.stringify(context.req.headers)
+  const hostname = context.req.headers['x-forwarded-host'] || context.req.headers.host;
 
   return {
     props: { name: 'Mario', host: hostname }
